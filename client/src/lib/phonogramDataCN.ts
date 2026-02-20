@@ -1,7 +1,13 @@
+export interface PhonogramExample {
+  display: string;      // 用于展示的文本，如 'ba-by'（带音节分隔）
+  pronunciation: string; // 用于发音的文本，如 'baby'（无分隔符）
+}
+
 export interface PhonogramSound {
-  sound: string;
+  phoneme: string;      // 音标，如 '/ă/'
+  label: string;        // 中文标签，如 '短音'
   description: string;
-  examples: string[];
+  examples: (string | PhonogramExample)[]; // 兼容字符串或对象格式
 }
 
 export interface Phonogram {
@@ -26,7 +32,7 @@ export const coreLessonsCN = [
         concept: '开音节',
         definition: '以元音结尾的音节。',
         result: '元音通常发第二个音（长音）。',
-        examples: ['me', 'go', 'ba-by']
+        examples: ['me', 'go', { display: 'ba-by', pronunciation: 'baby' }]
       }
     ]
   },
@@ -99,19 +105,32 @@ export const phonogramsCN: Phonogram[] = [
     type: 'vowel',
     sounds: [
       {
-        sound: '/ă/（短音）',
+        phoneme: '/ă/',
+        label: '短音',
         description: '闭音节逻辑：当 A 被辅音"关"在音节内部时，发短音。',
         examples: ['cat', 'map', 'sad', 'bag']
       },
       {
-        sound: '/ā/（长音）',
+        phoneme: '/ā/',
+        label: '长音',
         description: '规则 4：开音节末尾发长音。规则 12.1：结尾有不发音 E 时发长音。',
-        examples: ['ba-by', 'bake', 'cake', 'gate']
+        examples: [
+          { display: 'ba-by', pronunciation: 'baby' },
+          'bake',
+          'cake',
+          'gate'
+        ]
       },
       {
-        sound: '/ä/（宽音）',
+        phoneme: '/ä/',
+        label: '宽音',
         description: '规则 10：A 在 W 之后、L 之前，或作为单词结尾时读宽音。',
-        examples: ['wa-ter', 'ball', 'wall', 'wash']
+        examples: [
+          { display: 'wa-ter', pronunciation: 'water' },
+          'ball',
+          'wall',
+          'wash'
+        ]
       }
     ]
   },
@@ -120,7 +139,8 @@ export const phonogramsCN: Phonogram[] = [
     type: 'consonant',
     sounds: [
       {
-        sound: '/b/',
+        phoneme: '/b/',
+        label: '',
         description: '基础辅音：浊辅音，发音极其稳定。',
         examples: ['bat', 'big', 'bus', 'cab']
       }
@@ -131,14 +151,21 @@ export const phonogramsCN: Phonogram[] = [
     type: 'consonant',
     sounds: [
       {
-        sound: '/k/（硬音）',
+        phoneme: '/k/',
+        label: '硬音',
         description: '规则 1：默认发硬音。只要后面不是 E, I, Y。',
         examples: ['cat', 'cup', 'can', 'cake']
       },
       {
-        sound: '/s/（软音）',
+        phoneme: '/s/',
+        label: '软音',
         description: '规则 1：后面紧跟 E, I, Y 时必须变软。规则 12.3：结尾 E 负责让 C 变软。',
-        examples: ['cent', 'ci-ty', 'face', 'ice']
+        examples: [
+          'cent',
+          { display: 'ci-ty', pronunciation: 'city' },
+          'face',
+          'ice'
+        ]
       }
     ]
   },
@@ -147,7 +174,8 @@ export const phonogramsCN: Phonogram[] = [
     type: 'consonant',
     sounds: [
       {
-        sound: '/d/',
+        phoneme: '/d/',
+        label: '',
         description: '基础辅音：浊辅音。在过去时后缀 -ed 中受浊音影响保持 /d/。',
         examples: ['dog', 'dad', 'bed', 'red']
       }
@@ -158,12 +186,14 @@ export const phonogramsCN: Phonogram[] = [
     type: 'vowel',
     sounds: [
       {
-        sound: '/ĕ/（短音）',
+        phoneme: '/ĕ/',
+        label: '短音',
         description: '闭音节逻辑：被辅音封在音节内时发短音。',
         examples: ['egg', 'bed', 'met', 'pen']
       },
       {
-        sound: '/ē/（长音）',
+        phoneme: '/ē/',
+        label: '长音',
         description: '规则 4：开音节末尾发长音。规则 12.1：结尾有不发音 E 时发长音。',
         examples: ['me', 'be', 'he', 'these']
       }
@@ -174,7 +204,8 @@ export const phonogramsCN: Phonogram[] = [
     type: 'consonant',
     sounds: [
       {
-        sound: '/f/',
+        phoneme: '/f/',
+        label: '',
         description: '基础辅音：清辅音。规则 30：短元音后常双写。',
         examples: ['fan', 'fox', 'off', 'cliff']
       }
@@ -185,12 +216,14 @@ export const phonogramsCN: Phonogram[] = [
     type: 'consonant',
     sounds: [
       {
-        sound: '/g/（硬音）',
+        phoneme: '/g/',
+        label: '硬音',
         description: '规则 2：默认发硬音。只要后面不是 E, I, Y。',
         examples: ['go', 'get', 'bag', 'big']
       },
       {
-        sound: '/j/（软音）',
+        phoneme: '/j/',
+        label: '软音',
         description: '规则 2：后面紧跟 E, I, Y 时可能变软。规则 12.3：结尾 E 负责让 G 变软。',
         examples: ['gem', 'gym', 'page', 'cage']
       }
@@ -201,7 +234,8 @@ export const phonogramsCN: Phonogram[] = [
     type: 'consonant',
     sounds: [
       {
-        sound: '/h/',
+        phoneme: '/h/',
+        label: '',
         description: '基础辅音：清辅音，通常只出现在音节开头。',
         examples: ['hat', 'hen', 'hot', 'hug']
       }
@@ -212,12 +246,14 @@ export const phonogramsCN: Phonogram[] = [
     type: 'vowel',
     sounds: [
       {
-        sound: '/ĭ/（短音）',
+        phoneme: '/ĭ/',
+        label: '短音',
         description: '闭音节逻辑：被辅音封在音节内时发短音。',
         examples: ['it', 'in', 'big', 'sit']
       },
       {
-        sound: '/ī/（长音）',
+        phoneme: '/ī/',
+        label: '长音',
         description: '规则 5：音节末尾可能读长音。规则 12.1：结尾有不发音 E 时发长音。',
         examples: ['hi', 'like', 'time', 'find']
       }
@@ -228,7 +264,8 @@ export const phonogramsCN: Phonogram[] = [
     type: 'consonant',
     sounds: [
       {
-        sound: '/j/',
+        phoneme: '/j/',
+        label: '',
         description: '基础辅音：浊辅音。规则 3：英文单词通常不以 J 结尾。',
         examples: ['jam', 'jet', 'job', 'jump']
       }
@@ -239,7 +276,8 @@ export const phonogramsCN: Phonogram[] = [
     type: 'consonant',
     sounds: [
       {
-        sound: '/k/',
+        phoneme: '/k/',
+        label: '',
         description: '基础辅音：用于在 E, I, Y 前代替 C 发 /k/ 音。',
         examples: ['kit', 'kid', 'keep', 'bake']
       }
@@ -250,7 +288,8 @@ export const phonogramsCN: Phonogram[] = [
     type: 'consonant',
     sounds: [
       {
-        sound: '/l/',
+        phoneme: '/l/',
+        label: '',
         description: '基础辅音：浊辅音。规则 30：短元音后常双写。',
         examples: ['lip', 'leg', 'bell', 'fill']
       }
@@ -261,7 +300,8 @@ export const phonogramsCN: Phonogram[] = [
     type: 'consonant',
     sounds: [
       {
-        sound: '/m/',
+        phoneme: '/m/',
+        label: '',
         description: '基础辅音：鼻音，发音非常稳定。',
         examples: ['map', 'men', 'mom', 'him']
       }
@@ -272,7 +312,8 @@ export const phonogramsCN: Phonogram[] = [
     type: 'consonant',
     sounds: [
       {
-        sound: '/n/',
+        phoneme: '/n/',
+        label: '',
         description: '基础辅音：鼻音。',
         examples: ['net', 'not', 'pen', 'sun']
       }
@@ -283,17 +324,20 @@ export const phonogramsCN: Phonogram[] = [
     type: 'vowel',
     sounds: [
       {
-        sound: '/ŏ/（短音）',
+        phoneme: '/ŏ/',
+        label: '短音',
         description: '闭音节逻辑：被辅音封在音节内时发短音。',
         examples: ['on', 'hot', 'top', 'box']
       },
       {
-        sound: '/ō/（长音）',
+        phoneme: '/ō/',
+        label: '长音',
         description: '规则 4：开音节末尾发长音。规则 12.1：结尾有不发音 E 时发长音。',
         examples: ['go', 'no', 'hope', 'note']
       },
       {
-        sound: '/ö/（长u音）',
+        phoneme: '/ö/',
+        label: '长u音',
         description: '特殊逻辑：O 的第三种发音，读起来像长音 u 或 oo。',
         examples: ['do', 'to', 'who', 'move']
       }
@@ -304,7 +348,8 @@ export const phonogramsCN: Phonogram[] = [
     type: 'consonant',
     sounds: [
       {
-        sound: '/p/',
+        phoneme: '/p/',
+        label: '',
         description: '基础辅音：清辅音。',
         examples: ['pig', 'pen', 'pot', 'top']
       }
@@ -315,7 +360,8 @@ export const phonogramsCN: Phonogram[] = [
     type: 'consonant',
     sounds: [
       {
-        sound: '/kw/',
+        phoneme: '/kw/',
+        label: '',
         description: '规则 11：Q 永远需要 U 陪着它，共同发 /kw/ 音。',
         examples: ['quit', 'quiz', 'quick', 'queen']
       }
@@ -326,7 +372,8 @@ export const phonogramsCN: Phonogram[] = [
     type: 'consonant',
     sounds: [
       {
-        sound: '/r/',
+        phoneme: '/r/',
+        label: '',
         description: '基础辅音：浊辅音。',
         examples: ['rat', 'red', 'run', 'car']
       }
@@ -337,12 +384,14 @@ export const phonogramsCN: Phonogram[] = [
     type: 'consonant',
     sounds: [
       {
-        sound: '/s/（清音）',
+        phoneme: '/s/',
+        label: '清音',
         description: '基础发音：清辅音。规则 30：短元音后常双写。',
         examples: ['sun', 'sit', 'stop', 'glass']
       },
       {
-        sound: '/z/（浊音）',
+        phoneme: '/z/',
+        label: '浊音',
         description: '浊化逻辑：在两个元音之间或词尾常浊化。',
         examples: ['is', 'his', 'as', 'rose']
       }
@@ -353,7 +402,8 @@ export const phonogramsCN: Phonogram[] = [
     type: 'consonant',
     sounds: [
       {
-        sound: '/t/',
+        phoneme: '/t/',
+        label: '',
         description: '基础辅音：清辅音。',
         examples: ['ten', 'top', 'tap', 'hot']
       }
@@ -364,22 +414,30 @@ export const phonogramsCN: Phonogram[] = [
     type: 'vowel',
     sounds: [
       {
-        sound: '/ŭ/（短音）',
+        phoneme: '/ŭ/',
+        label: '短音',
         description: '闭音节逻辑：被辅音封在音节内时发短音。',
         examples: ['up', 'cup', 'bus', 'sun']
       },
       {
-        sound: '/ū/（长音u）',
+        phoneme: '/ū/',
+        label: '长音u',
         description: '规则 4：开音节末尾发长音。',
-        examples: ['u-nit', 'mu-sic', 'mu-te']
+        examples: [
+          { display: 'u-nit', pronunciation: 'unit' },
+          { display: 'mu-sic', pronunciation: 'music' },
+          { display: 'mu-te', pronunciation: 'mute' }
+        ]
       },
       {
-        sound: '/ö/（长oo音）',
+        phoneme: '/ö/',
+        label: '长oo音',
         description: '规则 12.1：结尾有不发音 E 时可能发长音 oo。',
         examples: ['blue', 'rule', 'flu', 'true']
       },
       {
-        sound: '/ü/（短oo音）',
+        phoneme: '/ü/',
+        label: '短oo音',
         description: '特殊逻辑：U 的第四种发音，读起来较短促。',
         examples: ['put', 'full', 'bull', 'push']
       }
@@ -390,7 +448,8 @@ export const phonogramsCN: Phonogram[] = [
     type: 'consonant',
     sounds: [
       {
-        sound: '/v/',
+        phoneme: '/v/',
+        label: '',
         description: '规则 12.2：英文单词不能以 V 结尾，必须加不发音 E。',
         examples: ['van', 'vet', 'have', 'live']
       }
@@ -401,7 +460,8 @@ export const phonogramsCN: Phonogram[] = [
     type: 'consonant',
     sounds: [
       {
-        sound: '/w/',
+        phoneme: '/w/',
+        label: '',
         description: '基础辅音：浊辅音。',
         examples: ['wet', 'win', 'wig', 'web']
       }
@@ -412,7 +472,8 @@ export const phonogramsCN: Phonogram[] = [
     type: 'consonant',
     sounds: [
       {
-        sound: '/ks/',
+        phoneme: '/ks/',
+        label: '',
         description: '复合音逻辑：实际上是 /k/ 和 /s/ 的快速组合。',
         examples: ['six', 'box', 'fox', 'tax']
       }
@@ -423,24 +484,36 @@ export const phonogramsCN: Phonogram[] = [
     type: 'vowel',
     sounds: [
       {
-        sound: '/y/（辅音）',
+        phoneme: '/y/',
+        label: '辅音',
         description: '辅音逻辑：出现在音节开头时作为辅音。',
         examples: ['yes', 'yam', 'yet', 'yell']
       },
       {
-        sound: '/ĭ/（短i）',
+        phoneme: '/ĭ/',
+        label: '短i',
         description: '规则 5：在词中作为元音时常发短音 i。',
-        examples: ['gym', 'sys-tem', 'myth']
+        examples: [
+          'gym',
+          { display: 'sys-tem', pronunciation: 'system' },
+          'myth'
+        ]
       },
       {
-        sound: '/ī/（长i）',
+        phoneme: '/ī/',
+        label: '长i',
         description: '规则 6：单音节词以 Y 结尾时发长音 /ī/。',
         examples: ['my', 'by', 'fly', 'try']
       },
       {
-        sound: '/ē/（长e）',
+        phoneme: '/ē/',
+        label: '长e',
         description: '规则 7.1：多音节词非重读结尾读长音 /ē/。',
-        examples: ['ba-by', 'hap-py', 'ci-ty']
+        examples: [
+          { display: 'ba-by', pronunciation: 'baby' },
+          { display: 'hap-py', pronunciation: 'happy' },
+          { display: 'ci-ty', pronunciation: 'city' }
+        ]
       }
     ]
   },
@@ -449,7 +522,8 @@ export const phonogramsCN: Phonogram[] = [
     type: 'consonant',
     sounds: [
       {
-        sound: '/z/',
+        phoneme: '/z/',
+        label: '',
         description: '规则 29：词首发 /z/ 音必须用 Z。规则 30：词尾常双写。',
         examples: ['zoo', 'zip', 'buzz', 'quiz']
       }

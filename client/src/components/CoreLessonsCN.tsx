@@ -20,7 +20,13 @@ export default function CoreLessonsCN() {
           concept: '开音节',
           definition: '以元音结尾的音节。',
           result: '元音通常发第二个音（长音）。',
-          examples: ['me', 'go', 'ba-by', 'pa-per', 'ta-ble']
+          examples: [
+            'me',
+            'go',
+            { display: 'ba-by', pronunciation: 'baby' },
+            { display: 'pa-per', pronunciation: 'paper' },
+            { display: 'ta-ble', pronunciation: 'table' }
+          ]
         }
       ]
     },
@@ -51,7 +57,13 @@ export default function CoreLessonsCN() {
           rule: '12.4',
           reason: '音节必须有元音',
           explanation: '每个音节必须有一个书面元音。',
-          examples: ['table', 'little', 'bottle', 'apple', 'simple']
+          examples: [
+            { display: 'ta-ble', pronunciation: 'table' },
+            { display: 'lit-tle', pronunciation: 'little' },
+            { display: 'bot-tle', pronunciation: 'bottle' },
+            { display: 'ap-ple', pronunciation: 'apple' },
+            { display: 'sim-ple', pronunciation: 'simple' }
+          ]
         },
         {
           rule: '12.5',
@@ -156,14 +168,17 @@ export default function CoreLessonsCN() {
                   <div>
                     <p className="text-xs font-semibold text-gray-700 mb-2">示例：</p>
                     <div className="flex flex-wrap gap-2">
-                      {section.examples.map((example, i) => (
-                        <span
-                          key={i}
-                          className="inline-block bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-sm font-medium"
-                        >
-                          {example}
-                        </span>
-                      ))}
+                      {section.examples.map((example, i) => {
+                        const display = typeof example === 'string' ? example : example.display;
+                        return (
+                          <span
+                            key={i}
+                            className="inline-block bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-sm font-medium"
+                          >
+                            {display}
+                          </span>
+                        );
+                      })}
                     </div>
                   </div>
                 </div>
